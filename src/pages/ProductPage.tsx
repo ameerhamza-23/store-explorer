@@ -1,3 +1,8 @@
 export default function ProductPage() {
-    return <h1>Product Detail Page</h1>
+    return (
+
+        <div className="h-full w-full m-8">
+            
+        </div>
+    )
 }
