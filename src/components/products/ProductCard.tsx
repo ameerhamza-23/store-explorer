@@ -1,7 +1,7 @@
 export default function ProductCard() {
     return (
-        <div className="w-72 h-72 flex flex-col text-sm">
-            <div className="w-72 h-56 bg-red-200">
+        <div className="w-full h-72 flex flex-col text-sm">
+            <div className="w-full h-56 bg-red-200">
 
             </div>
             <div className="flex flex-col border border-black"> 
