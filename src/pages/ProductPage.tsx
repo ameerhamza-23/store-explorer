@@ -1,4 +1,10 @@
+import { useDispatch } from "react-redux"
+import { addToCart } from "../actions/cartActions"
+
 export default function ProductPage() {
+
+    const dispatch = useDispatch()
+
     return (
         <div className="h-full w-full m-8 flex items-center">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mt-10">

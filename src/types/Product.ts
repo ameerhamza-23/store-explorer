@@ -11,3 +11,9 @@ export type Product = {
     };
   };
   
+  type SetProductAction = {
+    type: 'SET_PRODUCTS',
+    payload: Product[]
+  }
+
+  export type ProductAction = SetProductAction
