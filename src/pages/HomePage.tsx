@@ -9,9 +9,9 @@ export default function HomePage() {
     const [products, setProducts] = useState<Product[]>([])
 
     useEffect(() => {
-        fetch('https://fakestoreapi.com/products')
+        fetch('http://localhost:3000/api/products')
         .then(res => res.json())
-        .then(data => {setProducts(data); console.log(data)})
+        .then(data => setProducts(data))
     }, [])
 
     return (
