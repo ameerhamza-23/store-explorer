@@ -1,43 +1,57 @@
-import Header from "../components/home/Header"
+import Header from "../components/home/Header";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../reducers";
+import { Product } from "../types/Product";
 
 export default function CartPage() {
-    return (
-        <div className="w-full h-full m-8 overflow-x-auto">
-            <Header />
-            <table className="min-w-full border border-gray-300 text-sm mt-8">
-                <thead className="bg-gray-100 text-left">
-                    <tr>
-                        <th className="px-4 py-4 border-b border-gray-300">Title</th>
-                        <th className="px-4 py-4 border-b border-gray-300">Category</th>
-                        <th className="px-4 py-4 border-b border-gray-300">Rating</th>
-                        <th className="px-4 py-4 border-b border-gray-300">Stock</th>
-                        <th className="px-4 py-4 border-b border-gray-300">Price</th>
-                        <th className="px-4 py-4 border-b border-gray-300">Remove</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr className="hover:bg-gray-50">
-                        <td className="px-4 py-4 border-b border-gray-200">Test</td>
-                        <td className="px-4 py-4 border-b border-gray-200">Test</td>
-                        <td className="px-4 py-4 border-b border-gray-200">4.2</td>
-                        <td className="px-4 py-4 border-b border-gray-200">200</td>
-                        <td className="px-4 py-4 border-b border-gray-200">$300</td>
-                        <td className="px-4 py-4 border-b border-gray-200">
-                            <button className="text-red-500 hover:underline">Delete</button>
-                        </td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                        <td className="px-4 py-4 border-b border-gray-200">Test</td>
-                        <td className="px-4 py-4 border-b border-gray-200">Test</td>
-                        <td className="px-4 py-4 border-b border-gray-200">4.2</td>
-                        <td className="px-4 py-4 border-b border-gray-200">200</td>
-                        <td className="px-4 py-4 border-b border-gray-200">$300</td>
-                        <td className="px-4 py-4 border-b border-gray-200">
-                            <button className="text-red-500 hover:underline">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    )
+  const dispatch = useDispatch();
+  const products = useSelector((state: RootState) => state.cart.cart);
+
+  return (
+    <div className="w-full h-full m-8 overflow-x-auto">
+      <Header />
+      <table className="min-w-full border border-gray-300 text-sm mt-8">
+        <thead className="bg-gray-100 text-left">
+          <tr>
+            <th className="px-4 py-4 border-b border-gray-300">Title</th>
+            <th className="px-4 py-4 border-b border-gray-300">Category</th>
+            <th className="px-4 py-4 border-b border-gray-300">Rating</th>
+            <th className="px-4 py-4 border-b border-gray-300">Stock</th>
+            <th className="px-4 py-4 border-b border-gray-300">Price</th>
+            <th className="px-4 py-4 border-b border-gray-300">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.length === 0 ? (
+            <tr>
+              <td colSpan={6} className="px-4 py-6 text-center text-gray-500">
+                Your cart is empty.
+              </td>
+            </tr>
+          ) : (
+            products.map((product: Product) => (
+              <tr key={product.id} className="hover:bg-gray-50">
+                <td className="px-4 py-4 border-b border-gray-200">{product.title}</td>
+                <td className="px-4 py-4 border-b border-gray-200">{product.category}</td>
+                <td className="px-4 py-4 border-b border-gray-200">
+                  {product.rating?.rate ?? "N/A"}
+                </td>
+                <td className="px-4 py-4 border-b border-gray-200">
+                  {product.rating?.count ?? "N/A"}
+                </td>
+                <td className="px-4 py-4 border-b border-gray-200">${product.price}</td>
+                <td className="px-4 py-4 border-b border-gray-200">
+                  <button
+                    className="text-red-500 hover:underline"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
 }
