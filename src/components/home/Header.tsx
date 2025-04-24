@@ -1,25 +1,70 @@
 import { ChangeEvent } from "react"
 
 interface HeaderProps {
-  searchTerm: string
-  setSearchTerm: (term: string) => void
+    searchTerm: string
+    setSearchTerm: (term: string) => void
+    selectedCategory: string
+    setSelectedCategory: (category: string) => void
+    sortOption: string
+    setSortOption: (option: string) => void
 }
 
-export default function Header({ searchTerm, setSearchTerm }: HeaderProps) {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value)
-  }
+export default function Header({
+    searchTerm,
+    setSearchTerm,
+    selectedCategory,
+    setSelectedCategory,
+    sortOption,
+    setSortOption,
+}: HeaderProps) {
 
-  return (
-    <header className="w-full flex justify-between items-center">
-      <h1 className="text-2xl font-bold">Store Explorer</h1>
-      <input
-        type="text"
-        placeholder="Search products..."
-        value={searchTerm}
-        onChange={handleChange}
-        className="border border-gray-300 rounded px-4 py-2"
-      />
-    </header>
-  )
+    const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value)
+    }
+
+    const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCategory(e.target.value)
+    }
+
+    const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        setSortOption(e.target.value)
+    }
+
+    return (
+        <header className="w-full flex justify-between items-center">
+            <h1 className="text-2xl font-bold">Store Explorer</h1>
+            <div className="flex gap-4 items-center">
+                <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className="border border-gray-300 rounded px-4 py-2"
+                />
+
+                <select
+                    value={selectedCategory}
+                    onChange={handleCategoryChange}
+                    className="px-4 py-2 border rounded border-gray-300"
+                >
+                    <option value="">All Categories</option>
+                    <option value="smartphones">Smartphones</option>
+                    <option value="laptops">Laptops</option>
+                    <option value="fragrances">Fragrances</option>
+                    <option value="skincare">Skincare</option>
+                </select>
+
+                <select
+                    value={sortOption}
+                    onChange={handleSortChange}
+                    className="px-4 py-2 border rounded border-gray-300"
+                >
+                    <option value="">Sort By</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="rating-desc">Rating</option>
+                </select>
+            </div>
+        </header>
+    )
 }

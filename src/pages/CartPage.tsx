@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../reducers";
 import { Product } from "../types/Product";
 import { useState } from "react";
+import { RemoveFromCart } from "../actions/cartActions";
 
 export default function CartPage() {
 
@@ -12,7 +13,6 @@ export default function CartPage() {
 
   return (
     <div className="w-full h-full m-8 overflow-x-auto">
-      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
       <table className="min-w-full border border-gray-300 text-sm mt-8">
         <thead className="bg-gray-100 text-left">
           <tr>
@@ -45,7 +45,8 @@ export default function CartPage() {
                 <td className="px-4 py-4 border-b border-gray-200">${product.price}</td>
                 <td className="px-4 py-4 border-b border-gray-200">
                   <button
-                    className="text-red-500 hover:underline"
+                    className="text-red-500 cursor-pointer"
+                    onClick={() => dispatch(RemoveFromCart(product.id))}
                   >
                     Delete
                   </button>
