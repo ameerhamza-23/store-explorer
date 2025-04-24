@@ -3,9 +3,11 @@ import cartReducer from "./cartReducer";
 import productReducer from "./productReducer";
 
 const rootReducer = combineReducers({
-    cart: cartReducer,
-    product: productReducer
-})
+  cart: cartReducer,
+  product: productReducer,
+});
 
-export default rootReducer
-export type RootState = ReturnType<typeof rootReducer>
+export default rootReducer;
+
+// 👇 Make sure this is exported and imported into store.ts
+export type RootState = ReturnType<typeof rootReducer>;
