@@ -2,14 +2,17 @@ import Header from "../components/home/Header";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../reducers";
 import { Product } from "../types/Product";
+import { useState } from "react";
 
 export default function CartPage() {
+
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.cart.cart);
+  const [searchTerm, setSearchTerm] = useState('')
 
   return (
     <div className="w-full h-full m-8 overflow-x-auto">
-      <Header />
+      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
       <table className="min-w-full border border-gray-300 text-sm mt-8">
         <thead className="bg-gray-100 text-left">
           <tr>
