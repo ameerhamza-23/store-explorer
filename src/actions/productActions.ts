@@ -6,3 +6,10 @@ export const setProducts = (products: Product[]) => {
         payload: products
     }
 }
+
+export const getProduct = (productId: number) => {
+    return {
+        type: 'GET_PRODUCT',
+        payload: productId
+    }
+}
