@@ -8,7 +8,7 @@ import { RootState } from "./reducers";
 const persistConfig: PersistConfig<RootState> = {
   key: "root",
   storage,
-  whitelist: ["cart"],
+  whitelist: ["cart", "product"],
 };
 
 const persistedReducer = persistReducer<RootState>(persistConfig, rootReducer);
