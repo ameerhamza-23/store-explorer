@@ -5,7 +5,7 @@ import { setProducts } from "../actions/productActions"
 import { RootState } from "../reducers"
 import { Product } from "../types/Product"
 import ProductCard from "../components/products/ProductCard"
-import Header from "../components/home/Header"
+import Header from "../components/header/Header"
 
 export default function HomePage() {
   const dispatch = useDispatch()
