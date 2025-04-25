@@ -10,6 +10,7 @@ interface CategorySelectProps {
         value={value}
         onChange={onChange}
         className="px-4 py-2 border rounded border-gray-300"
+        data-testid="category-select"
       >
         <option value="">All Categories</option>
         {options.map((category) => (
