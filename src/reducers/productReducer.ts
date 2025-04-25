@@ -1,4 +1,3 @@
-// src/reducers/productReducer.ts
 import { Product } from "../types/Product";
 import { Action } from "redux";
 
@@ -6,8 +5,9 @@ interface SetProductsAction extends Action<'SET_PRODUCTS'> {
   payload: Product[];
 }
 
-const initialState: { products: Product[] } = {
-  products: []
+const initialState: { products: Product[], lastFetched: number | null } = {
+  products: [],
+  lastFetched:null
 };
 
 const productReducer = (
@@ -18,7 +18,8 @@ const productReducer = (
     case 'SET_PRODUCTS':
       return {
         ...state,
-        products: (action as SetProductsAction).payload
+        products: (action as SetProductsAction).payload,
+        lastFetched: Date.now()
       };
     default:
       return state;
