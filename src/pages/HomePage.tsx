@@ -79,9 +79,7 @@ export default function HomePage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {filteredProducts.map((product) => (
-            <Link to={`/product/${product.id}`} key={product.id}>
-              <ProductCard product={product} />
-            </Link>
+              <ProductCard product={product} key={product.id} />
           ))}
         </div>
       )}

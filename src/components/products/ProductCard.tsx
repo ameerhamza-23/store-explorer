@@ -1,7 +1,10 @@
 import { Product } from "../../types/Product";
+import { Link } from "react-router-dom";
 
 export default function ProductCard({product}: {product: Product }) {
     return (
+        <Link to={`/product/${product.id}`} data-testid='product-card-link'>
+
         <div className="w-full h-72 flex flex-col text-sm">
 
             <div className="w-full h-56 border border-black">
@@ -17,5 +20,6 @@ export default function ProductCard({product}: {product: Product }) {
             </div>
 
         </div>
+        </Link>
     )
 }

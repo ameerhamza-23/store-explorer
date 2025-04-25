@@ -1,22 +1,19 @@
 import ProductCard from "./ProductCard"
 import { Product } from "../../types/Product"
-
-const mockProduct: Product = {
-  id: 1,
-  title: "Test Product",
-  price: 99.99,
-  description: "This is a test product.",
-  category: "electronics",
-  image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-  rating: {
-    rate: 4.5,
-    count: 100,
-  },
-}
+import { MemoryRouter } from "react-router-dom"
 
 describe("ProductCard", () => {
+  let mockProduct: Product
+
   beforeEach(() => {
-    cy.mount(<ProductCard product={mockProduct} />)
+    cy.fixture("product").then((product) => {
+      mockProduct = product
+      cy.mount(
+        <MemoryRouter>
+          <ProductCard product={mockProduct} />
+        </MemoryRouter>
+      )
+    })
   })
 
   it("renders the product title", () => {
@@ -28,11 +25,10 @@ describe("ProductCard", () => {
   })
 
   it("renders the product image", () => {
-    cy.get("img")
-      .should("have.attr", "src", mockProduct.image)
+    cy.get("img").should("have.attr", "src", mockProduct.image)
   })
-
-  it("renders the product card with correct structure", () => {
-    cy.get("[data-testid='product-card']").should("exist").and("be.visible")
+  it("displays the correct stock count from the product data", () => {
+    cy.contains(`In Stock: ${mockProduct.rating.count}`).should("be.visible")
   })
+ 
 })

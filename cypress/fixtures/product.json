@@ -1,0 +1,12 @@
+{
+    "id": 1,
+    "title": "Test Product",
+    "price": 99.99,
+    "description": "This is a test product.",
+    "category": "electronics",
+    "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 100
+    }
+  }
