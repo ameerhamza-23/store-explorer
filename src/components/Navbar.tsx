@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../reducers";
 
 export default function Navbar() {
+
+    const cartLength = useSelector((state: RootState) => state.cart.cart.length)
+
     return (
         <nav className="h-16 bg-blue-300 flex items-center justify-between">
 
@@ -10,7 +15,7 @@ export default function Navbar() {
             </div>
 
             <div className="p-4">
-                count 0
+                Items :  {cartLength}
             </div>
 
         </nav>
