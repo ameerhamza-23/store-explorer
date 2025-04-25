@@ -9,6 +9,7 @@ interface SortSelectProps {
         value={value}
         onChange={onChange}
         className="px-4 py-2 border rounded border-gray-300"
+        data-testid="sort-select"
       >
         <option value="">Sort By</option>
         <option value="price-asc">Price: Low to High</option>
