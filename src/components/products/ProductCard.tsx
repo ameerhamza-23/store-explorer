@@ -5,7 +5,7 @@ export default function ProductCard({product}: {product: Product }) {
         <div className="w-full h-72 flex flex-col text-sm">
 
             <div className="w-full h-56 border border-black">
-                <img src={product.image} className="w-full h-full object-contain"/>
+                <img src={product.image} className="w-full h-full object-contain" data-testid='product-card'/>
             </div>
 
             <div className="flex flex-col border border-black"> 
