@@ -3,6 +3,7 @@ import { ChangeEvent } from "react"
 interface HeaderProps {
     searchTerm: string
     setSearchTerm: (term: string) => void
+    categories: string[]
     selectedCategory: string
     setSelectedCategory: (category: string) => void
     sortOption: string
@@ -12,6 +13,7 @@ interface HeaderProps {
 export default function Header({
     searchTerm,
     setSearchTerm,
+    categories,
     selectedCategory,
     setSelectedCategory,
     sortOption,
@@ -48,10 +50,12 @@ export default function Header({
                     className="px-4 py-2 border rounded border-gray-300"
                 >
                     <option value="">All Categories</option>
-                    <option value="smartphones">Smartphones</option>
-                    <option value="laptops">Laptops</option>
-                    <option value="fragrances">Fragrances</option>
-                    <option value="skincare">Skincare</option>
+                    {categories?.map((category) => (
+                        <option key={category} value={category}>
+                            {category}
+                        </option>
+                    ))}
+
                 </select>
 
                 <select

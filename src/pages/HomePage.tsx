@@ -13,6 +13,7 @@ export default function HomePage() {
 
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
   const [searchTerm, setSearchTerm] = useState("")
+  const [categories, setCategories] = useState<string[]>([])
   const [selectedCategory, setSelectedCategory] = useState("")
   const [sortOption, setSortOption] = useState("")
   const [loading, setLoading] = useState(false)
@@ -26,7 +27,8 @@ export default function HomePage() {
       fetch('http://localhost:3000/api/products')
         .then(res => res.json())
         .then(data => {
-          dispatch(setProducts(data))
+          dispatch(setProducts(data.products))
+          setCategories(data.categories)
         })
         .finally(() => setLoading(false))
     }
@@ -63,6 +65,7 @@ export default function HomePage() {
       <Header
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
+        categories={categories}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
         sortOption={sortOption}
