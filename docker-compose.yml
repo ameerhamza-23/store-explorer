@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./server
+    ports:
+      - "3000:3000"
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    networks:
+      - store-explorer-network
+
+  frontend:
+    build:
+      context: ./
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - store-explorer-network
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - store-explorer-network
+
+networks:
+  store-explorer-network:
+    driver: bridge
