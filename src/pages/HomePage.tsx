@@ -1,5 +1,4 @@
 import { Product } from "../types/Product";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../actions/productActions";
@@ -7,6 +6,7 @@ import { RootState } from "../reducers";
 import ProductCard from "../components/products/ProductCard";
 import Header from "../components/header/Header";
 import Pagination from "../components/Pagination";
+import { filterAndSortProducts } from "../utils/filterAndSortProducts";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -40,31 +40,17 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    let updatedProducts = [...products];
 
-    if (searchTerm) {
-      updatedProducts = updatedProducts.filter((product) =>
-        product.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    if (selectedCategory) {
-      updatedProducts = updatedProducts.filter(
-        (product) =>
-          product.category.toLowerCase() === selectedCategory.toLowerCase()
-      );
-    }
-
-    if (sortOption === "price-asc") {
-      updatedProducts.sort((a, b) => a.price - b.price);
-    } else if (sortOption === "price-desc") {
-      updatedProducts.sort((a, b) => b.price - a.price);
-    } else if (sortOption === "rating-desc") {
-      updatedProducts.sort((a, b) => b.rating.rate - a.rating.rate);
-    }
+    const updatedProducts = filterAndSortProducts(
+      products,
+      searchTerm,
+      selectedCategory,
+      sortOption
+    );
 
     setFilteredProducts(updatedProducts);
     setCurrentPage(1);
+   
   }, [searchTerm, selectedCategory, sortOption, products]);
 
   return (

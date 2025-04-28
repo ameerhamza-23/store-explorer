@@ -7,7 +7,7 @@ interface AddToCartAction extends Action<'ADD_TO_CART'> {
 }
 
 interface RemoveFromCartAction extends Action<'REMOVE_FROM_CART'> {
-  payload: number; // product ID
+  payload: number;
 }
 
 type CartActions = AddToCartAction | RemoveFromCartAction | Action<string>;

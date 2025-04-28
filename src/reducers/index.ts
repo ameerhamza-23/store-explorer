@@ -9,5 +9,4 @@ const rootReducer = combineReducers({
 
 export default rootReducer;
 
-// 👇 Make sure this is exported and imported into store.ts
 export type RootState = ReturnType<typeof rootReducer>;
