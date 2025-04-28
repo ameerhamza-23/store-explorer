@@ -21,7 +21,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "types": ["cypress"]
+    "types": ["cypress", "@testing-library/jest-dom"]
   },
   "include": ["src", "cypress"]
 }
