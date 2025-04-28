@@ -13,3 +13,17 @@ export const RemoveFromCart = (productId: number) => {
         payload: productId
     }
 }
+
+export const IncreaseQuantity = (productId: number) => {
+    return {
+        type: 'INCREASE_QUANTITY',
+        payload: productId
+    }
+}
+
+export const DecreaseQuantity = (productId: number) => {
+    return {
+        type: 'DECREASE_QUANTITY',
+        payload: productId
+    }
+}

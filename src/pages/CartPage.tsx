@@ -1,27 +1,34 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../reducers";
-import { Product } from "../types/Product";
-import { RemoveFromCart } from "../actions/cartActions";
+import { RemoveFromCart, IncreaseQuantity, DecreaseQuantity } from "../actions/cartActions";
 import { useState, useEffect } from "react";
 
 export default function CartPage() {
-
   const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.cart.cart);
-  const [total, setTotal] = useState(0)
+  const cart = useSelector((state: RootState) => state.cart.cart);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     setTotal(
-      products.reduce((acc, product) => acc + product.price, 0)
+      cart.reduce((acc, item) => acc + item.product.price * item.quantity, 0)
     );
-  }, [products]);
+  }, [cart]);
+
+  const handleIncrease = (productId: number) => {
+    dispatch(IncreaseQuantity(productId));
+  };
+
+  const handleDecrease = (productId: number) => {
+    dispatch(DecreaseQuantity(productId));
+  };
 
   return (
     <div className="w-full h-full m-8 overflow-x-auto">
-
-        <div className="flex justify-end">
-            <h1 className="text-sm">Subtotal: <span className="font-semibold">{total}</span></h1>
-        </div>
+      <div className="flex justify-end">
+        <h1 className="text-sm">
+          Subtotal: <span className="font-semibold">${total.toFixed(2)}</span>
+        </h1>
+      </div>
 
       <table className="min-w-full border border-gray-300 text-sm mt-8">
         <thead className="bg-gray-100 text-left">
@@ -31,32 +38,54 @@ export default function CartPage() {
             <th className="px-4 py-4 border-b border-gray-300">Rating</th>
             <th className="px-4 py-4 border-b border-gray-300">Stock</th>
             <th className="px-4 py-4 border-b border-gray-300">Price</th>
+            <th className="px-4 py-4 border-b border-gray-300">Quantity</th>
             <th className="px-4 py-4 border-b border-gray-300">Remove</th>
           </tr>
         </thead>
         <tbody>
-          {products.length === 0 ? (
+          {cart.length === 0 ? (
             <tr>
-              <td colSpan={6} className="px-4 py-6 text-center text-gray-500">
+              <td colSpan={7} className="px-4 py-6 text-center text-gray-500">
                 Your cart is empty.
               </td>
             </tr>
           ) : (
-            products.map((product: Product) => (
-              <tr key={product.id} className="hover:bg-gray-50">
-                <td className="px-4 py-4 border-b border-gray-200">{product.title}</td>
-                <td className="px-4 py-4 border-b border-gray-200">{product.category}</td>
+            cart.map((item) => (
+              <tr key={item.product.id} className="hover:bg-gray-50">
+                <td className="px-4 py-4 border-b border-gray-200">{item.product.title}</td>
+                <td className="px-4 py-4 border-b border-gray-200">{item.product.category}</td>
                 <td className="px-4 py-4 border-b border-gray-200">
-                  {product.rating?.rate ?? "N/A"}
+                  {item.product.rating?.rate ?? "N/A"}
                 </td>
                 <td className="px-4 py-4 border-b border-gray-200">
-                  {product.rating?.count ?? "N/A"}
+                  {item.product.rating?.count ?? "N/A"}
                 </td>
-                <td className="px-4 py-4 border-b border-gray-200">${product.price}</td>
+                <td className="px-4 py-4 border-b border-gray-200">
+                  ${item.product.price.toFixed(2)}
+                </td>
+                <td className="px-4 py-4 border-b border-gray-200">
+                  <div className="flex items-center space-x-2">
+                    <button
+                      className="px-2 py-1 bg-gray-200 rounded"
+                      onClick={() => handleDecrease(item.product.id)}
+                      disabled={item.quantity === 1}
+                    >
+                      -
+                    </button>
+                    <span>{item.quantity}</span>
+                    <button
+                      className="px-2 py-1 bg-gray-200 rounded"
+                      onClick={() => handleIncrease(item.product.id)}
+                      disabled={item.quantity === item.product.rating.count}
+                    >
+                      +
+                    </button>
+                  </div>
+                </td>
                 <td className="px-4 py-4 border-b border-gray-200">
                   <button
                     className="text-red-500 cursor-pointer"
-                    onClick={() => dispatch(RemoveFromCart(product.id))}
+                    onClick={() => dispatch(RemoveFromCart(item.product.id))}
                   >
                     Delete
                   </button>
