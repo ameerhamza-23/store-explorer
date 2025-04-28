@@ -1,25 +1,30 @@
 import { Product } from "../../types/Product";
 import { Link } from "react-router-dom";
 
-export default function ProductCard({product}: {product: Product }) {
-    return (
-        <Link to={`/product/${product.id}`} data-testid='product-card-link'>
-
-        <div className="w-full h-72 flex flex-col text-sm">
-
-            <div className="w-full h-56 border border-black">
-                <img src={product.image} className="w-full h-full object-contain" data-testid='product-card'/>
-            </div>
-
-            <div className="flex flex-col border border-black"> 
-                <p className="">{product.title}</p>
-                <div className="flex justify-between">
-                    <h1>Price: ${product.price}</h1>
-                    <h1>In Stock: {product.rating.count}</h1>
-                </div>
-            </div>
-
+export default function ProductCard({ product }: { product: Product }) {
+  return (
+    <Link to={`/product/${product.id}`} data-testid="product-card-link">
+      <div className="w-full h-80 flex flex-col bg-white rounded-2xl shadow-md overflow-hidden shadow:lg transition-shadow p-4">
+        {/* Image */}
+        <div className="w-full h-48 flex items-center justify-center mb-4">
+          <img
+            src={product.image}
+            alt={product.title}
+            className="h-full object-contain"
+            data-testid="product-card"
+          />
         </div>
-        </Link>
-    )
+
+        {/* Info */}
+        <div className="flex flex-col gap-2 text-sm text-gray-700">
+          <p className="font-semibold line-clamp-2">{product.title}</p>
+
+          <div className="flex justify-between text-gray-600 text-xs">
+            <span>Price: <span className="font-bold text-black">${product.price}</span></span>
+            <span>Stock: {product.rating.count}</span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
 }
