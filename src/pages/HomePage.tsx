@@ -1,31 +1,29 @@
 import { Product } from "../types/Product";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../actions/productActions";
+import { setCategories, setProducts } from "../actions/productActions";
 import { RootState } from "../reducers";
+import { filterAndSortProducts } from "../utils/filterAndSortProducts";
+import { useNavigate } from "react-router-dom";
 import ProductCard from "../components/products/ProductCard";
 import Header from "../components/header/Header";
 import Pagination from "../components/Pagination";
-import { filterAndSortProducts } from "../utils/filterAndSortProducts";
-import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 
 export default function HomePage() {
   const dispatch = useDispatch();
-  const { products, lastFetched } = useSelector(
+  const { products, lastFetched, categories } = useSelector(
     (state: RootState) => state.product
   );
 
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [sortOption, setSortOption] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate();
 
-  // Read the page number from the URL query parameter
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const page = queryParams.get("page");
@@ -35,6 +33,7 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
+    console.log("use effect called")
     const FIVE_SECONDS = 5000;
     const now = Date.now();
 
@@ -44,7 +43,7 @@ export default function HomePage() {
         .then((res) => res.json())
         .then((data) => {
           dispatch(setProducts(data.products));
-          setCategories(data.categories);
+          dispatch(setCategories(data.categories))
         })
         .finally(() => setLoading(false));
     }

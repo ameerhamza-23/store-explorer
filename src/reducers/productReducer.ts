@@ -5,14 +5,19 @@ interface SetProductsAction extends Action<'SET_PRODUCTS'> {
   payload: Product[];
 }
 
-const initialState: { products: Product[], lastFetched: number | null } = {
+interface setCategoriesAction extends Action<'SET_CATEGORIES'> {
+  payload: string[]
+}
+
+const initialState: { products: Product[], lastFetched: number | null, categories: string[] } = {
   products: [],
-  lastFetched:null
+  lastFetched:null,
+  categories: []
 };
 
 const productReducer = (
   state = initialState,
-  action: SetProductsAction | Action<string>
+  action: SetProductsAction | setCategoriesAction | Action<string>
 ) => {
   switch (action.type) {
     case 'SET_PRODUCTS':
@@ -21,6 +26,11 @@ const productReducer = (
         products: (action as SetProductsAction).payload,
         lastFetched: Date.now()
       };
+    case 'SET_CATEGORIES':
+      return {
+        ...state,
+        categories: (action as setCategoriesAction ).payload
+      }
     default:
       return state;
   }

@@ -5,7 +5,6 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link to={`/product/${product.id}`} data-testid="product-card-link">
       <div className="w-full h-auto flex flex-col bg-white rounded-2xl shadow-md overflow-hidden shadow-lg transition-shadow p-4">
-        {/* Image */}
         <div className="w-full h-48 sm:h-56 md:h-48 lg:h-56 flex items-center justify-center mb-4">
           <img
             src={product.image}
@@ -15,7 +14,6 @@ export default function ProductCard({ product }: { product: Product }) {
           />
         </div>
 
-        {/* Info */}
         <div className="flex flex-col gap-2 text-sm text-gray-700">
           <p className="font-semibold line-clamp-2">{product.title}</p>
 

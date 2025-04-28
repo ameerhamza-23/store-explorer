@@ -1,4 +1,3 @@
-// src/pages/ProductPage.tsx
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../reducers";

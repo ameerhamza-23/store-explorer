@@ -13,3 +13,10 @@ export const getProduct = (productId: number) => {
         payload: productId
     }
 }
+
+export const setCategories = (categories: string[]) => {
+    return {
+        type: 'SET_CATEGORIES',
+        payload: categories
+    }
+}

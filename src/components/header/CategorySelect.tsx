@@ -13,7 +13,7 @@ interface CategorySelectProps {
         data-testid="category-select"
       >
         <option value="">All Categories</option>
-        {options.map((category) => (
+        {options && options.map((category) => (
           <option key={category} value={category}>
             {category}
           </option>
