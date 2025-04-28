@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link to={`/product/${product.id}`} data-testid="product-card-link">
-      <div className="w-full h-80 flex flex-col bg-white rounded-2xl shadow-md overflow-hidden shadow:lg transition-shadow p-4">
+      <div className="w-full h-auto flex flex-col bg-white rounded-2xl shadow-md overflow-hidden shadow-lg transition-shadow p-4">
         {/* Image */}
-        <div className="w-full h-48 flex items-center justify-center mb-4">
+        <div className="w-full h-48 sm:h-56 md:h-48 lg:h-56 flex items-center justify-center mb-4">
           <img
             src={product.image}
             alt={product.title}

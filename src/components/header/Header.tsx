@@ -22,9 +22,9 @@ export default function Header({
   setSortOption,
 }: HeaderProps) {
   return (
-    <header className="w-full flex justify-between items-center">
-      <h1 className="text-2xl font-bold">Store Explorer</h1>
-      <div className="flex gap-4 items-center">
+    <header className="w-full flex flex-wrap justify-between items-center p-4">
+      <h1 className="text-2xl font-bold mb-4 sm:mb-0">Store Explorer</h1>
+      <div className="flex flex-wrap gap-4 items-center w-full sm:w-auto">
         <SearchInput value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         <CategorySelect
           value={selectedCategory}
