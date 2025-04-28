@@ -7,6 +7,7 @@ import ProductCard from "../components/products/ProductCard";
 import Header from "../components/header/Header";
 import Pagination from "../components/Pagination";
 import { filterAndSortProducts } from "../utils/filterAndSortProducts";
+import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -22,6 +23,16 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
+  const navigate = useNavigate(); // Initialize the navigate function
+
+  // Read the page number from the URL query parameter
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const page = queryParams.get("page");
+    if (page) {
+      setCurrentPage(Number(page));
+    }
+  }, []);
 
   useEffect(() => {
     const FIVE_SECONDS = 5000;
@@ -40,7 +51,6 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-
     const updatedProducts = filterAndSortProducts(
       products,
       searchTerm,
@@ -49,9 +59,13 @@ export default function HomePage() {
     );
 
     setFilteredProducts(updatedProducts);
-    setCurrentPage(1);
-   
   }, [searchTerm, selectedCategory, sortOption, products]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+
+    navigate(`/?page=${page}`, { replace: true });
+  };
 
   return (
     <div className="h-full w-full m-8 flex flex-col gap-8">
@@ -84,7 +98,7 @@ export default function HomePage() {
           <Pagination
             currentPage={currentPage}
             totalPages={Math.ceil(filteredProducts.length / productsPerPage)}
-            onPageChange={(page) => setCurrentPage(page)}
+            onPageChange={handlePageChange}
           />
         </>
       )}
