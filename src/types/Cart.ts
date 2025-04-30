@@ -1,4 +1,4 @@
-import { Product } from "./Product";
+import { Product } from "types/Product";
 
 type AddToCart = {
     type: "ADD_TO_CART";

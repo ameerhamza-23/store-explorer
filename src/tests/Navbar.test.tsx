@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
-import Navbar from "../components/navbar/Navbar";
+import Navbar from "components/navbar/Navbar";
 import { describe, it, expect } from "vitest";
 import '@testing-library/jest-dom/vitest';
 

@@ -1,4 +1,4 @@
-import { Product } from "../../types/Product";
+import { Product } from "types/Product";
 import { Link } from "react-router-dom";
 
 export default function ProductCard({ product }: { product: Product }) {

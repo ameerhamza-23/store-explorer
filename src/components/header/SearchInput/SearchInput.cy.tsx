@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { SearchInput } from "./SearchInput"
+import { SearchInput } from "components/header/SearchInput/SearchInput"
 
 describe("SearchInput", () => {
   function Wrapper() {

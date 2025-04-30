@@ -1,5 +1,5 @@
-import ProductCard from "./ProductCard"
-import { Product } from "../../types/Product"
+import ProductCard from "components/products/ProductCard"
+import { Product } from "types/Product"
 import { MemoryRouter } from "react-router-dom"
 
 describe("ProductCard", () => {

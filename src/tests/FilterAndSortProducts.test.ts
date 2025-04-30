@@ -1,5 +1,5 @@
-import { filterAndSortProducts } from "../utils/filterAndSortProducts";
-import { Product } from "../types/Product";
+import { filterAndSortProducts } from "utils/filterAndSortProducts";
+import { Product } from "types/Product";
 import { describe, expect, it } from "vitest";
 
 describe("filterAndSortProducts", () => {

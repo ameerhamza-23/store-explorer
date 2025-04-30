@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { CategorySelect } from "./CategorySelect"
+import { CategorySelect } from "components/header/categorySelect/CategorySelect"
 
 describe("CategorySelect", () => {
-  const TestComponent = () => {
+  const Wrapper = () => {
     const [selectedCategory, setSelectedCategory] = useState("")
     const categories = ["electronics", "jewelery", "men's clothing"]
 
@@ -16,7 +16,7 @@ describe("CategorySelect", () => {
   }
 
   beforeEach(() => {
-    cy.mount(<TestComponent />)
+    cy.mount(<Wrapper />)
   })
 
   it("renders all categories including 'All Categories'", () => {

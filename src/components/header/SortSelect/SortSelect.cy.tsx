@@ -1,8 +1,8 @@
-import { SortSelect } from "./SortSelect"
+import { SortSelect } from "components/header/SortSelect/SortSelect"
 import { useState } from "react"
 
 describe("SortSelect", () => {
-  const TestComponent = () => {
+  const Wrapper = () => {
     const [sortOption, setSortOption] = useState("")
 
     return (
@@ -14,7 +14,7 @@ describe("SortSelect", () => {
   }
 
   beforeEach(() => {
-    cy.mount(<TestComponent />)
+    cy.mount(<Wrapper />)
   })
 
   it("renders all sort options", () => {

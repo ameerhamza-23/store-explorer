@@ -1,4 +1,4 @@
-import { Product } from "../types/Product";
+import { Product } from "types/Product";
 import { Action } from "redux";
 
 interface SetProductsAction extends Action<'SET_PRODUCTS'> {

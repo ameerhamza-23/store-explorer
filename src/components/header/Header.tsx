@@ -1,6 +1,6 @@
-import { SearchInput } from "./SearchInput"
-import { CategorySelect } from "./CategorySelect"
-import { SortSelect } from "./SortSelect"
+import { SearchInput } from "components/header/SearchInput/SearchInput"
+import { CategorySelect } from "components/header/categorySelect/CategorySelect"
+import { SortSelect } from "components/header/SortSelect/SortSelect"
 
 interface HeaderProps {
   searchTerm: string

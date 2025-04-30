@@ -1,12 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../reducers";
-import { RemoveFromCart, IncreaseQuantity, DecreaseQuantity } from "../actions/cartActions";
+import { RootState } from "reducers/index";
+import { RemoveFromCart, IncreaseQuantity, DecreaseQuantity } from "actions/cartActions";
 import { useState, useEffect } from "react";
 
 export default function CartPage() {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart.cart);
   const [total, setTotal] = useState(0);
+
+  const tableColumns = ['Title' , 'Category', 'Rating', 'Stock', 'Price', 'Quantity', 'Remove']
 
   useEffect(() => {
     setTotal(
@@ -32,14 +34,11 @@ export default function CartPage() {
 
       <table className="min-w-full border border-gray-300 text-sm mt-8">
         <thead className="bg-gray-100 text-left">
+
           <tr>
-            <th className="px-4 py-4 border-b border-gray-300">Title</th>
-            <th className="px-4 py-4 border-b border-gray-300">Category</th>
-            <th className="px-4 py-4 border-b border-gray-300">Rating</th>
-            <th className="px-4 py-4 border-b border-gray-300">Stock</th>
-            <th className="px-4 py-4 border-b border-gray-300">Price</th>
-            <th className="px-4 py-4 border-b border-gray-300">Quantity</th>
-            <th className="px-4 py-4 border-b border-gray-300">Remove</th>
+            {tableColumns.map((value) => {
+              return <th key={value} className="px-4 py-4 border-b border-gray-300">{value}</th>
+            })}
           </tr>
         </thead>
         <tbody>
@@ -50,33 +49,33 @@ export default function CartPage() {
               </td>
             </tr>
           ) : (
-            cart.map((item) => (
-              <tr key={item.product.id} className="hover:bg-gray-50">
-                <td className="px-4 py-4 border-b border-gray-200">{item.product.title}</td>
-                <td className="px-4 py-4 border-b border-gray-200">{item.product.category}</td>
+            cart.map(({product, quantity}) => (
+              <tr key={product.id} className="hover:bg-gray-50">
+                <td className="px-4 py-4 border-b border-gray-200">{product.title}</td>
+                <td className="px-4 py-4 border-b border-gray-200">{product.category}</td>
                 <td className="px-4 py-4 border-b border-gray-200">
-                  {item.product.rating?.rate ?? "N/A"}
+                  {product.rating?.rate ?? "N/A"}
                 </td>
                 <td className="px-4 py-4 border-b border-gray-200">
-                  {item.product.rating?.count ?? "N/A"}
+                  {product.rating?.count ?? "N/A"}
                 </td>
                 <td className="px-4 py-4 border-b border-gray-200">
-                  ${item.product.price.toFixed(2)}
+                  ${product.price.toFixed(2)}
                 </td>
                 <td className="px-4 py-4 border-b border-gray-200">
                   <div className="flex items-center space-x-2">
                     <button
                       className="px-2 py-1 bg-gray-200 rounded"
-                      onClick={() => handleDecrease(item.product.id)}
-                      disabled={item.quantity === 1}
+                      onClick={() => handleDecrease(product.id)}
+                      disabled={quantity === 1}
                     >
                       -
                     </button>
-                    <span>{item.quantity}</span>
+                    <span>{quantity}</span>
                     <button
                       className="px-2 py-1 bg-gray-200 rounded"
-                      onClick={() => handleIncrease(item.product.id)}
-                      disabled={item.quantity === item.product.rating.count}
+                      onClick={() => handleIncrease(product.id)}
+                      disabled={quantity === product.rating.count}
                     >
                       +
                     </button>
@@ -85,7 +84,7 @@ export default function CartPage() {
                 <td className="px-4 py-4 border-b border-gray-200">
                   <button
                     className="text-red-500 cursor-pointer"
-                    onClick={() => dispatch(RemoveFromCart(item.product.id))}
+                    onClick={() => dispatch(RemoveFromCart(product.id))}
                   >
                     Delete
                   </button>

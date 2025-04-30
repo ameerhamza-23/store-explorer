@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../reducers";
-import { addToCart } from "../actions/cartActions";
+import { RootState } from "reducers/index";
+import { addToCart } from "actions/cartActions";
+import { Product } from "types/Product";
 
 export default function ProductPage() {
 
@@ -10,6 +11,11 @@ export default function ProductPage() {
     state.product.products.find(p => p.id === Number(id))
   );
   const dispatch = useDispatch()
+
+  function handleAddToCart(product: Product) {
+      dispatch(addToCart(product))
+      alert('Product added to cart')
+  }
 
   if (!product) {
     return <div className="p-6">Product not found...</div>;
@@ -31,7 +37,7 @@ export default function ProductPage() {
           <p className="text-sm text-gray-500">In stock: {product.rating?.count || 'N/A'}</p>
           <div className="flex justify-between items-center mt-2">
             <h1 className="text-xl font-bold">${product.price}</h1>
-            <button className="px-6 py-2 text-sm bg-black text-white rounded-lg hover:bg-gray-800 cursor-pointer" onClick={() => dispatch(addToCart(product))}>
+            <button className="px-6 py-2 text-sm bg-black text-white rounded-lg hover:bg-gray-800 cursor-pointer" onClick={() => {handleAddToCart(product)}}>
               Add to Cart
             </button>
           </div>

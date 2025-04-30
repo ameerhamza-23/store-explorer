@@ -8,7 +8,7 @@ const app = express()
 const PORT = process.env.PORT || 3000
 
 app.use(cors({
-  origin: "http://localhost:5173"
+  origin: process.env.ALLOWED_ORIGIN
 }));
 app.use(express.json());
 
@@ -19,7 +19,7 @@ app.get("/api/products", async (req, res) => {
             return res.json(JSON.parse(cached));
         }
         
-        const response = await axios.get('https://fakestoreapi.com/products');
+        const response = await axios.get(process.env.FAKE_STORE_API_URL);
         const products = response.data;
 
         const categories = [...new Set(products.map(p => p.category))];

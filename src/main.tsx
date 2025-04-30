@@ -1,9 +1,9 @@
+import 'index.css'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import {persistor, store} from 'store.ts'
 import { Provider } from 'react-redux'
-import { persistor, store } from './store.ts'
 import { PersistGate } from "redux-persist/integration/react";
+import App from 'App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
