@@ -1,13 +1,13 @@
 import { Product } from "types/Product";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategories, setProducts } from "actions/productActions";
 import { RootState } from "reducers";
 import { filterAndSortProducts } from "utils/filterAndSortProducts";
 import { useNavigate, useLocation } from "react-router-dom";
 import ProductCard from "components/products/ProductCard";
 import Header from "components/header/Header";
 import Pagination from "components/Pagination";
+import {fetchAndDispatchProducts} from 'utils/fetchProducts'
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -38,19 +38,7 @@ export default function HomePage() {
   }, [location.search]);
 
   useEffect(() => {
-    const FIVE_SECONDS = 5000;
-    const now = Date.now();
-
-    if (!products.length || !lastFetched || now - lastFetched > FIVE_SECONDS) {
-      setLoading(true);
-      fetch(`${serverUrl}/api/products`)
-        .then((res) => res.json())
-        .then((data) => {
-          dispatch(setProducts(data.products));
-          dispatch(setCategories(data.categories))
-        })
-        .finally(() => setLoading(false));
-    }
+    fetchAndDispatchProducts({ serverUrl, dispatch, setLoading, products, lastFetched }); 
   }, []);
 
   useEffect(() => {
